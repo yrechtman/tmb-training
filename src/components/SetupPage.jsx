@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { initUserData, suggestedStartDate } from '../utils/progress.js'
+import { initUserData, suggestedStartDate, formatDepartureDate } from '../utils/progress.js'
 
 export default function SetupPage({ user, onSetup }) {
   const suggested = suggestedStartDate()
   const [startDate, setStartDate] = useState(suggested)
+  const depDate = formatDepartureDate(startDate)
 
   function handleStart() {
     if (!startDate) return
@@ -18,8 +19,8 @@ export default function SetupPage({ user, onSetup }) {
         <h2>Hey {user.name}!</h2>
         <p>
           Let's set up your 12-week Tour du Mont Blanc training plan.
-          The program ends 3 days before your July 4 departure, so starting{' '}
-          <strong>April 11</strong> is the sweet spot.
+          Pick a start date and the program will map out your full schedule
+          through departure day.
         </p>
 
         <label className="setup-label">Your start date</label>
@@ -27,13 +28,11 @@ export default function SetupPage({ user, onSetup }) {
           type="date"
           className="setup-input"
           value={startDate}
-          min="2025-03-01"
-          max="2025-06-01"
           onChange={e => setStartDate(e.target.value)}
         />
-        {startDate === suggested && (
-          <p className="setup-suggestion">✓ Recommended: finishes June 30, 3 days before departure.</p>
-        )}
+        <p className="setup-suggestion">
+          12 weeks of training · Departure on {depDate}
+        </p>
 
         <button className="setup-btn" onClick={handleStart}>
           Start Training →

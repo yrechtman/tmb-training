@@ -1,8 +1,8 @@
 import { SCHEDULE, getPhase } from '../data/schedule.js'
 
 export const USERS = [
-  { id: 'yoni', name: 'Yoni', color: '#3B82F6', emoji: '🧗' },
-  { id: 'zoe',  name: 'Zoë',  color: '#EC4899', emoji: '🌿' },
+  { id: 'yoni', name: 'Yoni', color: '#C2571A', emoji: '🧗' },
+  { id: 'zoe',  name: 'Zoë',  color: '#0F766E', emoji: '🌿' },
 ]
 
 // ── Storage keys ──────────────────────────────────────────────────────────────
@@ -145,19 +145,38 @@ export function formatTime(totalSecs) {
   return `${mins}:${String(secs).padStart(2, '0')}`
 }
 
-// Days until July 4
-export function daysUntilDeparture() {
-  const departure = new Date(2025, 6, 4) // July 4, 2025
+// Find the departure date based on the DEPARTURE workout in the schedule
+export function getDepartureDate(startDateStr) {
+  const start = parseDateStr(startDateStr)
+  for (let w = 0; w < SCHEDULE.length; w++) {
+    for (let d = 0; d < SCHEDULE[w].length; d++) {
+      if (SCHEDULE[w][d]?.workouts?.includes('DEPARTURE')) {
+        return new Date(start.getTime() + (w * 7 + d) * 86400000)
+      }
+    }
+  }
+  // Fallback: end of schedule
+  return new Date(start.getTime() + SCHEDULE.length * 7 * 86400000)
+}
+
+// Days until departure, calculated from the user's start date
+export function daysUntilDeparture(startDateStr) {
+  if (!startDateStr) return 0
+  const departure = getDepartureDate(startDateStr)
   const today = new Date()
   today.setHours(0,0,0,0)
   departure.setHours(0,0,0,0)
   return Math.max(0, Math.floor((departure - today) / 86400000))
 }
 
-// Suggested start date (so program ends ~June 30 = 3 days before July 4)
+// Format a Date object nicely (e.g. "June 30")
+export function formatDepartureDate(startDateStr) {
+  const departure = getDepartureDate(startDateStr)
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  return `${months[departure.getMonth()]} ${departure.getDate()}`
+}
+
+// Suggested start date: today (or next Monday if preferred)
 export function suggestedStartDate() {
-  // 12 weeks = 84 days before July 4 = April 11
-  const departure = new Date(2025, 6, 4)
-  const start = new Date(departure.getTime() - 84 * 86400000)
-  return toDateStr(start)
+  return todayStr()
 }

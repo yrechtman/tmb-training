@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   getCurrentPosition, getDayData, completionKey,
-  getUserData, saveUserData, daysUntilDeparture,
+  getUserData, saveUserData, daysUntilDeparture, formatDepartureDate,
   getLatestBenchmark, formatTime
 } from '../utils/progress.js'
 import { getPhase } from '../data/schedule.js'
@@ -20,7 +20,8 @@ function formatDateNice(dateStr) {
 
 export default function TodayPage({ user, userData, onUpdate }) {
   const pos = getCurrentPosition(userData.startDate)
-  const days = daysUntilDeparture()
+  const days = daysUntilDeparture(userData.startDate)
+  const depDate = formatDepartureDate(userData.startDate)
 
   if (!pos) {
     return (
@@ -70,7 +71,7 @@ export default function TodayPage({ user, userData, onUpdate }) {
     <>
       {/* Countdown banner */}
       <div className="countdown-banner">
-        <span className="countdown-num">{days}</span> days until departure · July 4
+        <span className="countdown-num">{days}</span> days until departure · {depDate}
       </div>
 
       {/* Day header card */}

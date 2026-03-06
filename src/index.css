@@ -798,3 +798,91 @@ body {
   color: white;
   border-color: var(--orange);
 }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+/* Small phones */
+@media (max-width: 420px) {
+  .header {
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-title {
+    font-size: 12px;
+  }
+
+  .user-btn {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+
+  .nav-tab {
+    padding: 10px 10px;
+    font-size: 12px;
+  }
+
+  .page {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .week-grid {
+    gap: 3px;
+  }
+
+  .week-day {
+    padding: 6px 2px;
+    min-height: 58px;
+  }
+
+  .day-name { font-size: 9px; }
+  .day-date { font-size: 11px; }
+
+  .today-date { font-size: 18px; }
+
+  .progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bench-entry {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .bench-entry-date { min-width: auto; }
+}
+
+/* Ensure benchmark table scrolls horizontally on small screens */
+.card-body:has(table) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .page {
+    padding: 20px 24px;
+  }
+
+  .card-body {
+    padding: 16px 20px;
+  }
+
+  .card-header {
+    padding: 16px 20px 12px;
+  }
+
+  .workout-item-header {
+    padding: 13px 18px;
+  }
+
+  .workout-item-body {
+    padding: 14px 18px 16px;
+  }
+
+  .setup-card {
+    padding: 36px 32px;
+  }
+}
