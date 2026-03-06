@@ -5,12 +5,14 @@ import TodayPage from './components/TodayPage.jsx'
 import WeekPage from './components/WeekPage.jsx'
 import BenchmarksPage from './components/BenchmarksPage.jsx'
 import ProgressPage from './components/ProgressPage.jsx'
+import SettingsPage from './components/SettingsPage.jsx'
 
 const TABS = [
   { id: 'today',     label: 'Today',     icon: '📅' },
   { id: 'week',      label: 'Schedule',  icon: '🗓' },
   { id: 'benchmarks',label: 'Progress',  icon: '📈' },
   { id: 'both',      label: 'Both',      icon: '👥' },
+  { id: 'settings',  label: 'Settings',  icon: '⚙️' },
 ]
 
 export default function App() {
@@ -23,8 +25,8 @@ export default function App() {
 
   function refresh() { setRefreshKey(k => k + 1) }
 
-  // No start date? Show setup
-  if (!userData?.startDate && activeTab !== 'both') {
+  // No start date? Show setup (but allow settings and both tabs)
+  if (!userData?.startDate && activeTab !== 'both' && activeTab !== 'settings') {
     return (
       <div className="app">
         <Header user={user} users={USERS} activeUser={activeUser} setActiveUser={setActiveUser} />
@@ -42,6 +44,7 @@ export default function App() {
         {activeTab === 'week'       && <WeekPage  user={user} userData={userData} onUpdate={refresh} />}
         {activeTab === 'benchmarks' && <BenchmarksPage user={user} userData={userData} onUpdate={refresh} />}
         {activeTab === 'both'       && <ProgressPage users={USERS} refreshKey={refreshKey} />}
+        {activeTab === 'settings'   && <SettingsPage user={user} onUpdate={refresh} />}
       </main>
     </div>
   )

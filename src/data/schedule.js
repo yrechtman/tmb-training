@@ -7,12 +7,12 @@
 //             beatBenchmark?: { key, label } }
 
 export const PHASES = [
-  { name: 'BASE',     color: '#3B82F6', weeks: [1, 2, 3] },
-  { name: 'RECOVERY', color: '#10B981', weeks: [4] },
-  { name: 'BUILD',    color: '#F59E0B', weeks: [5, 6, 7] },
-  { name: 'RECOVERY', color: '#10B981', weeks: [8] },
-  { name: 'PEAK',     color: '#EF4444', weeks: [9, 10, 11] },
-  { name: 'TAPER',    color: '#8B5CF6', weeks: [12] },
+  { name: 'BASE',     color: '#4A7C59', weeks: [1, 2, 3] },
+  { name: 'RECOVERY', color: '#6B8F71', weeks: [4] },
+  { name: 'BUILD',    color: '#B5651D', weeks: [5, 6, 7] },
+  { name: 'RECOVERY', color: '#6B8F71', weeks: [8] },
+  { name: 'PEAK',     color: '#8B4513', weeks: [9, 10, 11] },
+  { name: 'TAPER',    color: '#5B7B8A', weeks: [12] },
 ]
 
 export function getPhase(weekNum) {
